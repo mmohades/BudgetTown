@@ -1,5 +1,5 @@
 import 'package:budget_down/pages/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 
@@ -38,10 +38,7 @@ class _BottomNavState extends State<BottomNav> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Play Ground',
-      style: optionStyle,
-    ),
+    PlayGround(),
     Text(
       'Index 2: Settings',
       style: optionStyle,
