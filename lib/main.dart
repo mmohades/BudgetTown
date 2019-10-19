@@ -1,52 +1,55 @@
+import 'package:budget_down/pages/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-var _counterD = Firestore.instance.collection('counters').document('counter');
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Budget Town',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          color: Colors.transparent,
+        ),
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BottomNav(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+class BottomNav extends StatefulWidget {
+  BottomNav({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BottomNavState createState() => _BottomNavState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _BottomNavState extends State<BottomNav> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    Text(
+      'Index 1: Play Ground',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Settings',
+      style: optionStyle,
+    ),
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-    _getCounterFromFirebase();
-  }
-
-  Future<void> _getCounterFromFirebase() async {
-    var n = await _counterD.get();
-    _counter = n.data['counter'] ?? 0;
-  }
-
-  void _incrementCounter() {
+  void _onItemTapped(int index) {
     setState(() {
-      _counter++;
-      _counterD.setData({
-        'counter': _counter,
-      }, merge: true);
+      _selectedIndex = index;
     });
   }
 
@@ -54,27 +57,32 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('October Budget Status'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black12,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.gavel),
+            title: Text('Play Ground'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white54,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
