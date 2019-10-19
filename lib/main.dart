@@ -1,5 +1,6 @@
 import 'package:budget_down/pages/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
       ),
       home: BottomNav(),
+
     );
   }
 }
