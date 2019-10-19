@@ -29,6 +29,10 @@ dependencies:
   firebase_core: ^0.4.0+7
   firebase_auth: ^0.11.1+12
 
+  percent_indicator: ^2.1.1+1
+  flare_flutter: any
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
