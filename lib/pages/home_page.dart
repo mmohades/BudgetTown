@@ -6,13 +6,14 @@ class HomePage extends StatelessWidget {
 
   final String pageTitle = 'October Budget Status';
 
-  final IconData coinIcon = Icons.attach_money;
+  final String coinImageName = 'Design/Coins.png';
   final String howMuchcoin = '300';
 
   final String breakDownTitle = 'Here is breakdown';
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -21,7 +22,10 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0),
             child: Row(
               children: <Widget>[
-                Icon(coinIcon),
+                SizedBox(
+                  height: 30,
+                  child: Image.asset(coinImageName),
+                ),
                 Text(howMuchcoin),
               ],
             ),
@@ -33,14 +37,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             _budgetPercentIndicator(context),
-            SizedBox(height: 40),
+            SizedBox(height: 50),
             Text(
               breakDownTitle,
               style: Theme.of(context).textTheme.subhead,
             ),
             SizedBox(height: 10),
-            SizedBox(
-              height: 250, // TODO: make this dynamic
+            Expanded(
               child: _breakdown(),
             ),
           ],
@@ -92,12 +95,17 @@ class HomePage extends StatelessWidget {
   }
 
   Center _budgetPercentIndicator(BuildContext context) {
+    double radius = 200;
+    double percent = 0.9;
+    double lineWidth = 10;
+    double startAngle = 180;
+
     return Center(
       child: CircularPercentIndicator(
-        radius: 200,
-        percent: 0.9,
-        lineWidth: 10,
-        startAngle: 180,
+        radius: radius,
+        percent: percent,
+        lineWidth: lineWidth,
+        startAngle: startAngle,
         linearGradient: LinearGradient(
           // TODO: make it smoother
           begin: Alignment(0, 1),
