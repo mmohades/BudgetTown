@@ -1,19 +1,50 @@
+import 'dart:async';
+
+import 'package:budget_down/pages/transaction_page.dart';
+import 'package:budget_down/shared/Global.dart';
+import 'package:budget_down/shared/data_provider.dart';
+import 'package:budget_down/shared/model/index.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:date_util/date_util.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
 
-  final String pageTitle = 'October Budget Status';
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  User user = Global.user;
+  CreditCard get creditCard => user.creditCard;
+
+  final String pageTitle =
+      '${DateUtil().month(DateTime.now().month)} Budget Status';
 
   final String coinImageName = 'Design/Coins.png';
-  final String howMuchcoin = '300';
 
   final String breakDownTitle = 'Here is breakdown';
 
+  _checkEveryDay() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (user.isUndeBudgetForToday) {
+        setState(() {
+          user.coins++;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _checkEveryDay();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
@@ -26,7 +57,7 @@ class HomePage extends StatelessWidget {
                   height: 30,
                   child: Image.asset(coinImageName),
                 ),
-                Text(howMuchcoin),
+                Text(user.coins.toString()),
               ],
             ),
           ),
@@ -44,7 +75,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Expanded(
-              child: _breakdown(),
+              child: _breakdown(context),
             ),
           ],
         ),
@@ -52,33 +83,77 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _breakdown() {
+  Widget _breakdown(BuildContext context) {
     return ListView(
       children: <Widget>[
         _breakDownListTile(
           'Transportation',
-          '\$56.14',
-          Icon(Icons.airplanemode_active),
+          '\$${creditCard.transportationBalance.toStringAsFixed(2)}',
+          Icon(Transactions.getIcon(Category.transportation)),
           Colors.red,
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TransactionPage(
+                  title: 'Transportation',
+                  transactions: DataProvider.transportationTransactions(
+                    creditCard.transactions,
+                  ),
+                  category: Category.transportation,
+                ),
+              ),
+            );
+          },
         ),
         _breakDownListTile(
-          'Restaurant',
-          '\$28.16',
-          Icon(Icons.local_dining),
+          'Food',
+          '\$${creditCard.foodBalance.toStringAsFixed(2)}',
+          Icon(Transactions.getIcon(Category.food)),
           Colors.blue,
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TransactionPage(
+                  title: 'Food',
+                  transactions: DataProvider.foodTransactions(
+                    creditCard.transactions,
+                  ),
+                  category: Category.food,
+                ),
+              ),
+            );
+          },
         ),
         _breakDownListTile(
           'Other',
-          '\$34.16',
-          Icon(Icons.more_vert),
+          '\$${creditCard.othersBalance.toStringAsFixed(2)}',
+          Icon(Transactions.getIcon(Category.others)),
           Colors.grey,
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TransactionPage(
+                  title: 'Other',
+                  transactions: DataProvider.othersTransactions(
+                    creditCard.transactions,
+                  ),
+                  category: Category.others,
+                ),
+              ),
+            );
+          },
         ),
       ],
     );
   }
 
   Widget _breakDownListTile(
-      String title, String spend, Icon icon, Color color) {
+    String title,
+    String spend,
+    Icon icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(12.0),
@@ -91,14 +166,19 @@ class HomePage extends StatelessWidget {
       title: Text(title),
       subtitle: Text(spend),
       trailing: Icon(Icons.arrow_forward_ios),
+      onTap: onTap ?? null,
     );
   }
 
   Center _budgetPercentIndicator(BuildContext context) {
     double radius = 200;
-    double percent = 0.9;
+
     double lineWidth = 10;
     double startAngle = 180;
+
+    double currentAmout = creditCard.balanceFake;
+
+    double percent = currentAmout / user.budget;
 
     return Center(
       child: CircularPercentIndicator(
@@ -119,16 +199,16 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '\$1,004',
+              '\$${creditCard.balanceFake.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.headline,
             ),
             Text(
-              'of \$1,200',
+              'of \$${user.budget.floor()}',
               style: Theme.of(context).textTheme.caption,
             ),
           ],
         ),
-        footer: Text('13 days left'),
+        footer: Text('${user.daysLeft} days left'),
       ),
     );
   }
