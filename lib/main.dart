@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
       ),
       home: BottomNav(),
-
     );
   }
 }
@@ -55,9 +54,9 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('October Budget Status'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('October Budget Status'),
+      // ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
