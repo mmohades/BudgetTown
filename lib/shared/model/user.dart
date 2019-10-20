@@ -26,8 +26,6 @@ class User {
       DateUtil().daysInMonth(DateTime.now().month, DateTime.now().year);
   int get daysLeft => daysInMonth - DateTime.now().day;
 
-  bool isBottomSheetOpen = false;
-
   User({
     this.name,
     this.id,

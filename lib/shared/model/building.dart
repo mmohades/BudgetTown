@@ -26,10 +26,10 @@ class BuildingdProvider {
 
     buildings.clear();
 
-    buildings.add(Building("Airpot", 800, true, 10));
+    buildings.add(Building("Airport", 800, true, 10));
     buildings.add(Building("Bank", 200, true, 5));
     buildings.add(Building("Bowling", 100, true, 5));
-    buildings.add(Building("Coffe shop", 80, false, 2));
+    buildings.add(Building("Coffee shop", 80, false, 2));
     buildings.add(Building("Condo", 50, false, 0));
     buildings.add(Building("Fire station", 30, false, 0));
     buildings.add(Building("Fountain", 5, false, 0));
