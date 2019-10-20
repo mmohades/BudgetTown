@@ -119,6 +119,7 @@ class _Example01Tile extends StatefulWidget {
 class __Example01TileState extends State<_Example01Tile> {
   User user = Global.user;
   String imgFile;
+  Building selectedBuilding;
   List<String> imgNames = [
     'Airport',
     'Bank',
@@ -153,16 +154,24 @@ class __Example01TileState extends State<_Example01Tile> {
           });
           _askUserForImage(context);
         },
-        child: new Center(
-          child: new Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: (imgFile == null)
-                ? Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )
-                : _buildImage(),
-          ),
+        child: new Column(
+          children: <Widget>[
+            Expanded(
+              child: new Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: (imgFile == null)
+                    ? Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      )
+                    : _buildImage(),
+              ),
+            ),
+            Expanded(
+              child: Text(selectedBuilding == null ? "" : selectedBuilding.name,
+                  textAlign: TextAlign.center),
+            ),
+          ],
         ),
       ),
     );
@@ -184,6 +193,7 @@ class __Example01TileState extends State<_Example01Tile> {
                     onPressed: () {
                       setState(() {
                         user.isBottomSheetOpen = false;
+                        selectedBuilding = building;
                         imgFile = building.name;
                       });
                       Navigator.of(context).pop();
@@ -192,6 +202,7 @@ class __Example01TileState extends State<_Example01Tile> {
                   onTap: () {
                     setState(() {
                       user.isBottomSheetOpen = false;
+                      selectedBuilding = building;
                       imgFile = building.name;
                     });
                     Navigator.of(context).pop();
