@@ -1,9 +1,8 @@
 import 'dart:async';
-
-import 'package:budget_down/pages/transaction_page.dart';
-import 'package:budget_down/shared/Global.dart';
-import 'package:budget_down/shared/data_provider.dart';
-import 'package:budget_down/shared/model/index.dart';
+import 'package:budget_town/pages/index.dart';
+import 'package:budget_town/shared/Global.dart';
+import 'package:budget_town/shared/data_provider.dart';
+import 'package:budget_town/shared/model/index.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -28,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   final String breakDownTitle = 'Here is breakdown';
 
   _checkEveryDay() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(Duration(hours: 1), (timer) {
       if (user.isUndeBudgetForToday) {
         setState(() {
           user.coins++;
