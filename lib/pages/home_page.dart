@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   final String coinImageName = 'Design/Coins.png';
 
-  final String breakDownTitle = 'Here is breakdown';
+  final String breakDownTitle = 'Expenses Breakdown';
 
   _checkEveryDay() {
     Timer.periodic(Duration(hours: 1), (timer) {

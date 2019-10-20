@@ -8,14 +8,14 @@ import 'package:budget_town/shared/model/building.dart';
 import '../shared/Global.dart';
 import '../shared/model/user.dart';
 
-class PlayGround extends StatefulWidget {
-  const PlayGround({Key key}) : super(key: key);
+class CityViewer extends StatefulWidget {
+  const CityViewer({Key key}) : super(key: key);
 
   @override
-  _PlayGroundState createState() => _PlayGroundState();
+  _CityViewerState createState() => _CityViewerState();
 }
 
-class _PlayGroundState extends State<PlayGround> {
+class _CityViewerState extends State<CityViewer> {
   final String userName = "John's Town";
   User user = Global.user;
 
@@ -84,7 +84,7 @@ class _PlayGroundState extends State<PlayGround> {
       body: Column(
         children: <Widget>[
           Text(
-            "Julia's Town",
+            "Friend's Town",
             style: Theme.of(context).textTheme.headline,
           ),
           Expanded(
@@ -148,12 +148,7 @@ class __Example01TileState extends State<_Example01Tile> {
     return new Card(
       color: widget.backgroundColor,
       child: new InkWell(
-        onTap: () {
-          setState(() {
-            user.isBottomSheetOpen = true;
-          });
-          _askUserForImage(context);
-        },
+        onTap: () {},
         child: new Column(
           children: <Widget>[
             Expanded(
@@ -174,49 +169,6 @@ class __Example01TileState extends State<_Example01Tile> {
           ],
         ),
       ),
-    );
-  }
-
-  void _askUserForImage(BuildContext context) {
-    // String selectedImg;
-    showBottomSheet(
-      builder: (BuildContext context) {
-        return BottomSheet(
-          builder: (BuildContext context) {
-            return ListView(
-              children: buildings.map((building) {
-                return ListTile(
-                  leading: Image.asset('Design/buildings/${building.name}.png'),
-                  title: Text(building.name),
-                  trailing: RaisedButton(
-                    child: Text('${building.constructionCost} Coins'),
-                    onPressed: () {
-                      setState(() {
-                        user.isBottomSheetOpen = false;
-                        selectedBuilding = building;
-                        imgFile = building.name;
-                      });
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  onTap: () {
-                    setState(() {
-                      user.isBottomSheetOpen = false;
-                      selectedBuilding = building;
-                      imgFile = building.name;
-                    });
-                    Navigator.of(context).pop();
-                  },
-                );
-              }).toList(),
-            );
-          },
-          onClosing: () {
-            user.isBottomSheetOpen = false;
-          },
-        );
-      },
-      context: context,
     );
   }
 
