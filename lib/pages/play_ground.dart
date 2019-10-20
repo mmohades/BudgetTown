@@ -143,6 +143,7 @@ class _Example01Tile extends StatefulWidget {
 
 class __Example01TileState extends State<_Example01Tile> {
   String imgFile;
+  Building selectedBuilding;
   List<String> imgNames = [
     'Airport',
     'Bank',
@@ -174,15 +175,24 @@ class __Example01TileState extends State<_Example01Tile> {
         onTap: () async {
           await _askUserForImage(context);
         },
-        child: new Center(
-          child: new Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: (imgFile == null)
-                ? Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )
-                : _buildImage(),
+        child: Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: new Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: (imgFile == null)
+                      ? Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        )
+                      : _buildImage(),
+                ),
+              ),
+              Text(selectedBuilding == null ? "" : selectedBuilding.name,
+                  textAlign: TextAlign.center),
+            ],
           ),
         ),
       ),
@@ -257,6 +267,7 @@ class __Example01TileState extends State<_Example01Tile> {
           setState(() {
             // Global.user.coins -= val.constructionCost;
             imgFile = val.name;
+            selectedBuilding = val;
             widget.notiftParent(val.constructionCost);
           });
         }
