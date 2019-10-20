@@ -39,10 +39,7 @@ class _BottomNavState extends State<BottomNav> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     PlayGround(),
-    Text(
-      'Index 2: Settings',
-      style: optionStyle,
-    ),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
