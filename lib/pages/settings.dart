@@ -67,14 +67,14 @@ class _SettingsState extends State<Settings> {
         ),
         SizedBox(height: 10.0),
         _optionsListTitle(
-          'Setup Budget Goals',
+          'Setup Budget Goal',
           Icon(Icons.person_pin),
           Colors.black,
           () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => SetupGoals(
-                  title: 'Choose your Goals'
+                builder: (context) => SetupBudget(
+                  title: 'Set your Budget'
                 )
               )
             );
