@@ -50,18 +50,18 @@ class _PlayGroundState extends State<PlayGround> {
     Colors.blue,
   ];
 
-  List<Widget> _tiles = <Widget>[
-    _Example01Tile(Colors.green),
-    _Example01Tile(Colors.lightBlue),
-    _Example01Tile(Colors.amber),
-    _Example01Tile(Colors.brown),
-    _Example01Tile(Colors.deepOrange),
-    _Example01Tile(Colors.indigo),
-    _Example01Tile(Colors.red),
-    _Example01Tile(Colors.pink),
-    _Example01Tile(Colors.purple),
-    _Example01Tile(Colors.blue),
-  ];
+  // List<Widget> _tiles = <Widget>[
+  //   _Example01Tile(Colors.green),
+  //   _Example01Tile(Colors.lightBlue),
+  //   _Example01Tile(Colors.amber),
+  //   _Example01Tile(Colors.brown),
+  //   _Example01Tile(Colors.deepOrange),
+  //   _Example01Tile(Colors.indigo),
+  //   _Example01Tile(Colors.red),
+  //   _Example01Tile(Colors.pink),
+  //   _Example01Tile(Colors.purple),
+  //   _Example01Tile(Colors.blue),
+  // ];
 
   final String coinImageName = 'Design/Coins.png';
 
@@ -105,7 +105,7 @@ class _PlayGroundState extends State<PlayGround> {
           ),
           Expanded(
             child: StaggeredGridView.countBuilder(
-              itemCount: _tiles.length,
+              itemCount: colors.length,
               crossAxisCount: 4,
               // staggeredTiles: _staggeredTiles,
               // children: _tiles,
@@ -116,6 +116,12 @@ class _PlayGroundState extends State<PlayGround> {
                 return _Example01Tile(
                   colors[index],
                   notiftParent: _notiftParent,
+                  imgFile: (Global.user.buildings.isNotEmpty &&
+                          Global.user.buildings[index] != null)
+                      ? Global.user.buildings[index].name
+                      : null,
+                  index: index,
+                  updateUserBuildings: _updateUserBuildings,
                 );
               },
               staggeredTileBuilder: (int index) {
@@ -129,13 +135,27 @@ class _PlayGroundState extends State<PlayGround> {
     );
     // );
   }
+
+  _updateUserBuildings(int index, Building building) {
+    setState(() {
+      Global.user.buildings[index] = building;
+    });
+  }
 }
 
 class _Example01Tile extends StatefulWidget {
-  _Example01Tile(this.backgroundColor, {this.buildingName, this.notiftParent});
+  _Example01Tile(this.backgroundColor,
+      {this.buildingName,
+      this.notiftParent,
+      this.imgFile,
+      this.index,
+      this.updateUserBuildings});
+  final String imgFile;
   final Color backgroundColor;
   final String buildingName;
+  final int index;
   final Function(int coins) notiftParent;
+  final Function(int index, Building building) updateUserBuildings;
 
   @override
   __Example01TileState createState() => __Example01TileState();
@@ -143,7 +163,13 @@ class _Example01Tile extends StatefulWidget {
 
 class __Example01TileState extends State<_Example01Tile> {
   String imgFile;
-  Building selectedBuilding;
+
+  @override
+  void initState() {
+    super.initState();
+    imgFile = widget.imgFile ?? null;
+  }
+
   List<String> imgNames = [
     'Airport',
     'Bank',
@@ -190,7 +216,10 @@ class __Example01TileState extends State<_Example01Tile> {
                       : _buildImage(),
                 ),
               ),
-              Text(selectedBuilding == null ? "" : selectedBuilding.name,
+              Text(
+                  Global.user.buildings[widget.index] == null
+                      ? ""
+                      : Global.user.buildings[widget.index].name,
                   textAlign: TextAlign.center),
             ],
           ),
@@ -259,7 +288,7 @@ class __Example01TileState extends State<_Example01Tile> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Error: Not enough coins'),
+                title: Text('Error: Not enough coins ☹️'),
               );
             },
           );
@@ -267,7 +296,7 @@ class __Example01TileState extends State<_Example01Tile> {
           setState(() {
             // Global.user.coins -= val.constructionCost;
             imgFile = val.name;
-            selectedBuilding = val;
+            widget.updateUserBuildings(widget.index, val);
             widget.notiftParent(val.constructionCost);
           });
         }
