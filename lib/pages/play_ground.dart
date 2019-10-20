@@ -87,7 +87,7 @@ class _PlayGroundState extends State<PlayGround> {
         ),
         actions: <Widget>[
           new IconButton(
-            icon: Icon(Icons.arrow_upward),
+            icon: new Image.asset("Design/leaderboard.png"),
             onPressed: () {
               Navigator.push(
                 context,
