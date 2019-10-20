@@ -1,5 +1,6 @@
-import 'package:budget_town/pages/index.dart';
 import 'package:flutter/material.dart';
+
+import 'pages/index.dart';
 
 void main() => runApp(MyApp());
 
