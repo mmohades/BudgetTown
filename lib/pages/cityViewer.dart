@@ -60,15 +60,13 @@ class _CityViewerState extends State<CityViewer> {
             ),
           ],
         ),
-        leading: user.isBottomSheetOpen
-            ? null
-            : Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: CircleAvatar(
-                  radius: 5,
-                  child: Image.asset('Design/User_Image.png'),
-                ),
-              ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: CircleAvatar(
+            radius: 5,
+            child: Image.asset('Design/User_Image.png'),
+          ),
+        ),
         actions: <Widget>[
           new IconButton(
             icon: new Image.asset("Design/leaderboard.png"),

@@ -67,16 +67,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             Material(
-              child: InkWell(
-                child: _budgetPercentIndicator(context),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PurchaseChart()),
-                  );
-                },
-              )
-            ),
+                child: InkWell(
+              child: _budgetPercentIndicator(context),
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => PurchaseChart()),
+                // );
+              },
+            )),
             SizedBox(height: 50),
             Text(
               breakDownTitle,
