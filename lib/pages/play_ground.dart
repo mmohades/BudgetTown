@@ -3,6 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../shared/Global.dart';
+import '../shared/model/user.dart';
+
 class PlayGround extends StatefulWidget {
   const PlayGround({Key key}) : super(key: key);
 
@@ -11,11 +14,8 @@ class PlayGround extends StatefulWidget {
 }
 
 class _PlayGroundState extends State<PlayGround> {
-  final int coinAmount = 300;
-
-  final String playGroundTitle = " Coins: \$";
-
   final String userName = "John's Town";
+  User user = Global.user;
 
   List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
     const StaggeredTile.count(2, 2),
@@ -43,11 +43,30 @@ class _PlayGroundState extends State<PlayGround> {
     const _Example01Tile(Colors.blue, Icons.radio),
   ];
 
+  final String coinImageName = 'Design/Coins.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text(userName + playGroundTitle + coinAmount.toString()),
+        title: Row(
+          children: <Widget>[
+            Text(user.coins.toString()),
+            SizedBox(
+              height: 30,
+              child: Image.asset(coinImageName),
+            ),
+          ],
+        ),
+        leading: user.isBottomSheetOpen
+            ? null
+            : Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: CircleAvatar(
+                  radius: 5,
+                  child: Image.asset('Design/User_Image.png'),
+                ),
+              ),
         actions: <Widget>[
           new IconButton(
             icon: Icon(Icons.arrow_upward),
@@ -60,14 +79,24 @@ class _PlayGroundState extends State<PlayGround> {
           ),
         ],
       ),
-      body: StaggeredGridView.count(
-        crossAxisCount: 4,
-        staggeredTiles: _staggeredTiles,
-        children: _tiles,
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        padding: const EdgeInsets.all(4.0),
-        physics: NeverScrollableScrollPhysics(),
+      body: Column(
+        children: <Widget>[
+          Text(
+            "Julia's Town",
+            style: Theme.of(context).textTheme.headline,
+          ),
+          Expanded(
+            child: StaggeredGridView.count(
+              crossAxisCount: 4,
+              staggeredTiles: _staggeredTiles,
+              children: _tiles,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              padding: const EdgeInsets.all(4.0),
+              // physics: NeverScrollableScrollPhysics(),
+            ),
+          ),
+        ],
       ),
     );
     // );
@@ -84,6 +113,7 @@ class _Example01Tile extends StatefulWidget {
 }
 
 class __Example01TileState extends State<_Example01Tile> {
+  User user = Global.user;
   String imgFile;
   List<String> imgNames = [
     'Airport',
@@ -112,6 +142,9 @@ class __Example01TileState extends State<_Example01Tile> {
       color: widget.backgroundColor,
       child: new InkWell(
         onTap: () {
+          setState(() {
+            user.isBottomSheetOpen = true;
+          });
           _askUserForImage(context);
         },
         child: new Center(
@@ -145,6 +178,7 @@ class __Example01TileState extends State<_Example01Tile> {
                     onPressed: () {
                       setState(() {
                         imgFile = name;
+                        user.isBottomSheetOpen = false;
                       });
                       Navigator.of(context).pop();
                     },
@@ -152,6 +186,7 @@ class __Example01TileState extends State<_Example01Tile> {
                   onTap: () {
                     setState(() {
                       imgFile = name;
+                      user.isBottomSheetOpen = false;
                     });
                     Navigator.of(context).pop();
                   },
@@ -159,7 +194,9 @@ class __Example01TileState extends State<_Example01Tile> {
               }).toList(),
             );
           },
-          onClosing: () {},
+          onClosing: () {
+            user.isBottomSheetOpen = false;
+          },
         );
       },
       context: context,
