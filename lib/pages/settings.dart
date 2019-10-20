@@ -26,7 +26,8 @@ class Settings extends StatelessWidget {
   // Widget _options(BuildContext context){
   //   return ListView(
   //     children: <Widget>[
-  //       _
+  //       _optionsListTitle(
+  //         'Account Profile', Icon(Icons.supervised_user_circle), color, onTap))
   //     ],
   //   );
   // }
@@ -38,7 +39,17 @@ class Settings extends StatelessWidget {
   //   VoidCallback onTap,
   // ) {
   //   return ListTile(
-
-  //   )
+  //     leading: Container(
+  //       padding: const EdgeInsets.all(12.0),
+  //       decoration: BoxDecoration(
+  //         color: color, 
+  //         borderRadius: BorderRadius.circular(10)
+  //       ),
+  //       child: icon,
+  //     ),
+  //     title: Text(title),
+  //     trailing: Icon(Icons.arrow_forward_ios),
+  //     onTap: onTap ?? null,
+  //   );
   // }
 }
