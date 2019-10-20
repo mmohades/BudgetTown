@@ -45,8 +45,6 @@ class _PlayGroundState extends State<PlayGround> {
 
   @override
   Widget build(BuildContext context) {
-    // return Positioned(
-    //   child:
     return Scaffold(
       appBar: AppBar(
         // title: Text(userName + playGroundTitle + coinAmount.toString()),
@@ -76,19 +74,46 @@ class _PlayGroundState extends State<PlayGround> {
   }
 }
 
-class _Example01Tile extends StatelessWidget {
-  const _Example01Tile(this.backgroundColor, this.iconData, {this.imgFile});
-
-  final String imgFile;
+class _Example01Tile extends StatefulWidget {
+  const _Example01Tile(this.backgroundColor, this.iconData);
   final Color backgroundColor;
   final IconData iconData;
 
   @override
+  __Example01TileState createState() => __Example01TileState();
+}
+
+class __Example01TileState extends State<_Example01Tile> {
+  String imgFile;
+  List<String> imgNames = [
+    'Airport',
+    'Bank',
+    'Bowling',
+    'Coffee shop',
+    'Condo',
+    'Fire station',
+    'Fountain',
+    'Hospital',
+    'House',
+    'Museum',
+    'Park',
+    'Pizzeria',
+    'Police station',
+    'Pub',
+    'School',
+    'Skyscraper',
+    'Supermarket',
+    'Townhouse',
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return new Card(
-      color: backgroundColor,
+      color: widget.backgroundColor,
       child: new InkWell(
-        onTap: () {},
+        onTap: () {
+          _askUserForImage(context);
+        },
         child: new Center(
           child: new Padding(
             padding: const EdgeInsets.all(4.0),
@@ -104,7 +129,44 @@ class _Example01Tile extends StatelessWidget {
     );
   }
 
+  void _askUserForImage(BuildContext context) {
+    // String selectedImg;
+    showBottomSheet(
+      builder: (BuildContext context) {
+        return BottomSheet(
+          builder: (BuildContext context) {
+            return ListView(
+              children: imgNames.map((name) {
+                return ListTile(
+                  leading: Image.asset('Design/buildings/$name.png'),
+                  title: Text(name),
+                  trailing: RaisedButton(
+                    child: Text('10 Coins'),
+                    onPressed: () {
+                      setState(() {
+                        imgFile = name;
+                      });
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  onTap: () {
+                    setState(() {
+                      imgFile = name;
+                    });
+                    Navigator.of(context).pop();
+                  },
+                );
+              }).toList(),
+            );
+          },
+          onClosing: () {},
+        );
+      },
+      context: context,
+    );
+  }
+
   Widget _buildImage() {
-    return Image.asset('Design/MainCity.png');
+    return Image.asset('Design/buildings/$imgFile.png');
   }
 }
