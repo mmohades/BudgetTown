@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:budget_town/shared/model/building.dart';
 
+import '../shared/Global.dart';
+import '../shared/model/user.dart';
+
 class PlayGround extends StatefulWidget {
   const PlayGround({Key key}) : super(key: key);
 
@@ -13,10 +16,6 @@ class PlayGround extends StatefulWidget {
 }
 
 class _PlayGroundState extends State<PlayGround> {
-  final int coinAmount = 300;
-
-  final String playGroundTitle = " Coins: \$";
-
   final String userName = "John's Town";
 
   List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
@@ -32,24 +31,60 @@ class _PlayGroundState extends State<PlayGround> {
     const StaggeredTile.count(4, 1),
   ];
 
-  List<Widget> _tiles = const <Widget>[
-    const _Example01Tile(Colors.green, Icons.widgets),
-    const _Example01Tile(Colors.lightBlue, Icons.wifi),
-    const _Example01Tile(Colors.amber, Icons.panorama_wide_angle),
-    const _Example01Tile(Colors.brown, Icons.map),
-    const _Example01Tile(Colors.deepOrange, Icons.send),
-    const _Example01Tile(Colors.indigo, Icons.airline_seat_flat),
-    const _Example01Tile(Colors.red, Icons.bluetooth),
-    const _Example01Tile(Colors.pink, Icons.battery_alert),
-    const _Example01Tile(Colors.purple, Icons.desktop_windows),
-    const _Example01Tile(Colors.blue, Icons.radio),
+  _notiftParent(int coins) {
+    setState(() {
+      Global.user.coins -= coins;
+    });
+  }
+
+  List<Color> colors = [
+    Colors.green,
+    Colors.lightBlue,
+    Colors.amber,
+    Colors.brown,
+    Colors.deepOrange,
+    Colors.indigo,
+    Colors.red,
+    Colors.pink,
+    Colors.purple,
+    Colors.blue,
   ];
+
+  // List<Widget> _tiles = <Widget>[
+  //   _Example01Tile(Colors.green),
+  //   _Example01Tile(Colors.lightBlue),
+  //   _Example01Tile(Colors.amber),
+  //   _Example01Tile(Colors.brown),
+  //   _Example01Tile(Colors.deepOrange),
+  //   _Example01Tile(Colors.indigo),
+  //   _Example01Tile(Colors.red),
+  //   _Example01Tile(Colors.pink),
+  //   _Example01Tile(Colors.purple),
+  //   _Example01Tile(Colors.blue),
+  // ];
+
+  final String coinImageName = 'Design/Coins.png';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text(userName + playGroundTitle + coinAmount.toString()),
+        title: Row(
+          children: <Widget>[
+            Text(Global.user.coins.toString()),
+            SizedBox(
+              height: 30,
+              child: Image.asset(coinImageName),
+            ),
+          ],
+        ),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: CircleAvatar(
+            radius: 5,
+            child: Image.asset('Design/User_Image.png'),
+          ),
+        ),
         actions: <Widget>[
           new IconButton(
             icon: Icon(Icons.arrow_upward),
@@ -62,26 +97,65 @@ class _PlayGroundState extends State<PlayGround> {
           ),
         ],
       ),
-      body: StaggeredGridView.count(
-        crossAxisCount: 4,
-        staggeredTiles: _staggeredTiles,
-        children: _tiles,
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-        padding: const EdgeInsets.all(4.0),
-        physics: NeverScrollableScrollPhysics(),
+      body: Column(
+        children: <Widget>[
+          Text(
+            "Julia's Town",
+            style: Theme.of(context).textTheme.headline,
+          ),
+          Expanded(
+            child: StaggeredGridView.countBuilder(
+              itemCount: colors.length,
+              crossAxisCount: 4,
+              // staggeredTiles: _staggeredTiles,
+              // children: _tiles,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+              padding: const EdgeInsets.all(4.0),
+              itemBuilder: (BuildContext context, int index) {
+                return _Example01Tile(
+                  colors[index],
+                  notiftParent: _notiftParent,
+                  imgFile: (Global.user.buildings.isNotEmpty &&
+                          Global.user.buildings[index] != null)
+                      ? Global.user.buildings[index].name
+                      : null,
+                  index: index,
+                  updateUserBuildings: _updateUserBuildings,
+                );
+              },
+              staggeredTileBuilder: (int index) {
+                return _staggeredTiles[index];
+              },
+              // physics: NeverScrollableScrollPhysics(),
+            ),
+          ),
+        ],
       ),
     );
     // );
   }
+
+  _updateUserBuildings(int index, Building building) {
+    setState(() {
+      Global.user.buildings[index] = building;
+    });
+  }
 }
 
 class _Example01Tile extends StatefulWidget {
-  const _Example01Tile(this.backgroundColor, this.iconData,
-      {this.buildingName});
+  _Example01Tile(this.backgroundColor,
+      {this.buildingName,
+      this.notiftParent,
+      this.imgFile,
+      this.index,
+      this.updateUserBuildings});
+  final String imgFile;
   final Color backgroundColor;
-  final IconData iconData;
   final String buildingName;
+  final int index;
+  final Function(int coins) notiftParent;
+  final Function(int index, Building building) updateUserBuildings;
 
   @override
   __Example01TileState createState() => __Example01TileState();
@@ -89,6 +163,13 @@ class _Example01Tile extends StatefulWidget {
 
 class __Example01TileState extends State<_Example01Tile> {
   String imgFile;
+
+  @override
+  void initState() {
+    super.initState();
+    imgFile = widget.imgFile ?? null;
+  }
+
   List<String> imgNames = [
     'Airport',
     'Bank',
@@ -117,59 +198,110 @@ class __Example01TileState extends State<_Example01Tile> {
     return new Card(
       color: widget.backgroundColor,
       child: new InkWell(
-        onTap: () {
-          _askUserForImage(context);
+        onTap: () async {
+          await _askUserForImage(context);
         },
-        child: new Center(
-          child: new Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: (imgFile == null)
-                ? Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )
-                : _buildImage(),
+        child: Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: new Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: (imgFile == null)
+                      ? Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        )
+                      : _buildImage(),
+                ),
+              ),
+              Text(
+                  Global.user.buildings[widget.index] == null
+                      ? ""
+                      : Global.user.buildings[widget.index].name,
+                  textAlign: TextAlign.center),
+            ],
           ),
         ),
       ),
     );
   }
 
-  void _askUserForImage(BuildContext context) {
+  Future _askUserForImage(BuildContext context) async {
     // String selectedImg;
-    showBottomSheet(
+    await showModalBottomSheet(
       builder: (BuildContext context) {
         return BottomSheet(
           builder: (BuildContext context) {
-            return ListView(
-              children: buildings.map((building) {
-                return ListTile(
-                  leading: Image.asset('Design/buildings/${building.name}.png'),
-                  title: Text(building.name),
-                  trailing: RaisedButton(
-                    child: Text('${building.constructionCost} Coins'),
-                    onPressed: () {
-                      setState(() {
-                        imgFile = building.name;
-                      });
-                      Navigator.of(context).pop();
-                    },
+            return Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    FlatButton(
+                      child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Buildings',
+                    style: Theme.of(context).textTheme.title,
                   ),
-                  onTap: () {
-                    setState(() {
-                      imgFile = building.name;
-                    });
-                    Navigator.of(context).pop();
-                  },
-                );
-              }).toList(),
+                ),
+                Expanded(
+                  child: ListView(
+                    children: buildings.map((building) {
+                      return ListTile(
+                        leading: Image.asset(
+                            'Design/buildings/${building.name}.png'),
+                        title: Text(building.name),
+                        trailing: RaisedButton(
+                          child: Text('${building.constructionCost} Coins'),
+                          onPressed: () {
+                            Navigator.of(context).pop(building);
+                          },
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop(building);
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             );
           },
           onClosing: () {},
         );
       },
       context: context,
-    );
+    ).then((val) {
+      if (val != null) {
+        if (Global.user.coins < val.constructionCost) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Error: Not enough coins ☹️'),
+              );
+            },
+          );
+        } else {
+          setState(() {
+            // Global.user.coins -= val.constructionCost;
+            imgFile = val.name;
+            widget.updateUserBuildings(widget.index, val);
+            widget.notiftParent(val.constructionCost);
+          });
+        }
+      }
+    });
   }
 
   Widget _buildImage() {
