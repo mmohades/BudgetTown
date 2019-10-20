@@ -32,12 +32,14 @@ class User {
   //
   Map<int, Building> buildings = {};
 
-  User(
-      {this.name,
-      this.id,
-      this.coins = 1125,
-      this.budget = 0,
-      this.profileImageName = "user_image"});
+  User({
+    this.name,
+    this.id,
+    this.coins = 1125,
+    this.budget = 0,
+    this.profileImageName = "user_image",
+    this.buildings,
+  });
 }
 
 class Users {
@@ -46,7 +48,12 @@ class Users {
       id: "001",
       coins: 4500,
       budget: 1200,
-      profileImageName: "anna.png");
+      profileImageName: "anna.png",
+      buildings: {
+        0: Buildings.AIRPORT,
+        4: Buildings.BOWLING,
+        5: Buildings.FIRE_STATION
+      });
   static final BOB = User(
       name: "Bob",
       id: "002",
@@ -58,7 +65,12 @@ class Users {
       id: "003",
       coins: 850,
       budget: 1100,
-      profileImageName: "jony.png");
+      profileImageName: "jony.png",
+      buildings: {
+        2: Buildings.AIRPORT,
+        3: Buildings.BOWLING,
+        4: Buildings.FIRE_STATION
+      });
   static final MARK = User(
       name: "Mark",
       id: "004",

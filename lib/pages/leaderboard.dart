@@ -1,4 +1,5 @@
 import 'package:budget_town/pages/cityViewer.dart';
+import 'package:budget_town/pages/index.dart';
 import 'package:budget_town/shared/model/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +8,17 @@ class Leaderboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Leaderboard'),
-        ),
-        body: Column(children: <Widget>[
+      appBar: AppBar(
+        title: Text('Leaderboard'),
+      ),
+      body: Column(
+        children: <Widget>[
           Expanded(
             child: _breakdown(context),
           )
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget _breakdown(BuildContext context) {
@@ -29,8 +33,22 @@ class Leaderboard extends StatelessWidget {
   }
 
   createLeaderboardCell(user, context) {
-    return _breakDownListTile('${user.name}\'s Town', '${user.coins} Coins',
-        Image.asset('Design/${user.profileImageName}'), Colors.red, () {});
+    return _breakDownListTile(
+      '${user.name}\'s Town',
+      '${user.coins} Coins',
+      Image.asset('Design/${user.profileImageName}'),
+      Colors.red,
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PlayGround(
+              hasAccessToEdit: false,
+              user: user,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _breakDownListTile(

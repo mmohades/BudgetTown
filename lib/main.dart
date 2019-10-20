@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/index.dart';
+import 'shared/Global.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,9 +36,12 @@ class _BottomNavState extends State<BottomNav> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    PlayGround(),
+    PlayGround(
+      user: Global.user,
+      hasAccessToEdit: true,
+    ),
     Settings(),
   ];
 

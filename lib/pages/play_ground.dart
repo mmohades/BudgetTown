@@ -9,15 +9,17 @@ import '../shared/Global.dart';
 import '../shared/model/user.dart';
 
 class PlayGround extends StatefulWidget {
-  const PlayGround({Key key}) : super(key: key);
+  final User user;
+  final bool hasAccessToEdit;
+  const PlayGround(
+      {Key key, @required this.user, @required this.hasAccessToEdit})
+      : super(key: key);
 
   @override
   _PlayGroundState createState() => _PlayGroundState();
 }
 
 class _PlayGroundState extends State<PlayGround> {
-  final String userName = "John's Town";
-
   List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
     const StaggeredTile.count(2, 2),
     const StaggeredTile.count(2, 1),
@@ -32,9 +34,11 @@ class _PlayGroundState extends State<PlayGround> {
   ];
 
   _notiftParent(int coins) {
-    setState(() {
-      Global.user.coins -= coins;
-    });
+    if (widget.hasAccessToEdit) {
+      setState(() {
+        widget.user.coins -= coins;
+      });
+    }
   }
 
   List<Color> colors = [
@@ -50,58 +54,54 @@ class _PlayGroundState extends State<PlayGround> {
     Colors.blue,
   ];
 
-  // List<Widget> _tiles = <Widget>[
-  //   _Example01Tile(Colors.green),
-  //   _Example01Tile(Colors.lightBlue),
-  //   _Example01Tile(Colors.amber),
-  //   _Example01Tile(Colors.brown),
-  //   _Example01Tile(Colors.deepOrange),
-  //   _Example01Tile(Colors.indigo),
-  //   _Example01Tile(Colors.red),
-  //   _Example01Tile(Colors.pink),
-  //   _Example01Tile(Colors.purple),
-  //   _Example01Tile(Colors.blue),
-  // ];
-
   final String coinImageName = 'Design/Coins.png';
 
   @override
   Widget build(BuildContext context) {
+    var _leading = Padding(
+      padding: const EdgeInsets.only(left: 15.0),
+      child: CircleAvatar(
+        child: Image.asset('Design/${widget.user.profileImageName}'),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: <Widget>[
-            Text(Global.user.coins.toString()),
+            Text(widget.user.coins.toString()),
             SizedBox(
               height: 30,
               child: Image.asset(coinImageName),
             ),
           ],
         ),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: CircleAvatar(
-            radius: 5,
-            child: Image.asset('Design/User_Image.png'),
-          ),
-        ),
+        leading: widget.hasAccessToEdit ? _leading : null,
         actions: <Widget>[
-          new IconButton(
-            icon: new Image.asset("Design/leaderboard.png"),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Leaderboard()),
-              );
-            },
-          ),
+          if (widget.hasAccessToEdit)
+            new IconButton(
+              icon: new Image.asset("Design/leaderboard.png"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Leaderboard()),
+                );
+              },
+            ),
         ],
       ),
       body: Column(
         children: <Widget>[
-          Text(
-            "Julia's Town",
-            style: Theme.of(context).textTheme.headline,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              if (!widget.hasAccessToEdit) _leading,
+              SizedBox(width: 10),
+              Text(
+                "${widget.user.name}'s Town",
+                style: Theme.of(context).textTheme.headline,
+              ),
+            ],
           ),
           Expanded(
             child: StaggeredGridView.countBuilder(
@@ -116,12 +116,14 @@ class _PlayGroundState extends State<PlayGround> {
                 return _Example01Tile(
                   colors[index],
                   notiftParent: _notiftParent,
-                  imgFile: (Global.user.buildings.isNotEmpty &&
-                          Global.user.buildings[index] != null)
-                      ? Global.user.buildings[index].name
+                  imgFile: (widget.user.buildings.isNotEmpty &&
+                          widget.user.buildings[index] != null)
+                      ? widget.user.buildings[index].name
                       : null,
                   index: index,
                   updateUserBuildings: _updateUserBuildings,
+                  user: widget.user,
+                  hasAccessToEdit: widget.hasAccessToEdit,
                 );
               },
               staggeredTileBuilder: (int index) {
@@ -137,9 +139,11 @@ class _PlayGroundState extends State<PlayGround> {
   }
 
   _updateUserBuildings(int index, Building building) {
-    setState(() {
-      Global.user.buildings[index] = building;
-    });
+    if (widget.hasAccessToEdit) {
+      setState(() {
+        widget.user.buildings[index] = building;
+      });
+    }
   }
 }
 
@@ -149,13 +153,17 @@ class _Example01Tile extends StatefulWidget {
       this.notiftParent,
       this.imgFile,
       this.index,
-      this.updateUserBuildings});
+      this.updateUserBuildings,
+      this.user,
+      @required this.hasAccessToEdit});
+  final User user;
   final String imgFile;
   final Color backgroundColor;
   final String buildingName;
   final int index;
   final Function(int coins) notiftParent;
   final Function(int index, Building building) updateUserBuildings;
+  final bool hasAccessToEdit;
 
   @override
   __Example01TileState createState() => __Example01TileState();
@@ -170,27 +178,6 @@ class __Example01TileState extends State<_Example01Tile> {
     imgFile = widget.imgFile ?? null;
   }
 
-  List<String> imgNames = [
-    'Airport',
-    'Bank',
-    'Bowling',
-    'Coffee shop',
-    'Condo',
-    'Fire station',
-    'Fountain',
-    'Hospital',
-    'House',
-    'Museum',
-    'Park',
-    'Pizzeria',
-    'Police station',
-    'Pub',
-    'School',
-    'Skyscraper',
-    'Supermarket',
-    'Townhouse',
-  ];
-
   List<Building> buildings = BuildingdProvider.initBuildings();
 
   @override
@@ -199,6 +186,7 @@ class __Example01TileState extends State<_Example01Tile> {
       color: widget.backgroundColor,
       child: new InkWell(
         onTap: () async {
+          if (!widget.hasAccessToEdit) return;
           await _askUserForImage(context);
         },
         child: Center(
@@ -208,7 +196,7 @@ class __Example01TileState extends State<_Example01Tile> {
               Expanded(
                 child: new Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: (imgFile == null)
+                  child: (imgFile == null && widget.hasAccessToEdit)
                       ? Icon(
                           Icons.add,
                           color: Colors.white,
@@ -217,9 +205,9 @@ class __Example01TileState extends State<_Example01Tile> {
                 ),
               ),
               Text(
-                  Global.user.buildings[widget.index] == null
+                  widget.user.buildings[widget.index] == null
                       ? ""
-                      : Global.user.buildings[widget.index].name,
+                      : widget.user.buildings[widget.index].name,
                   textAlign: TextAlign.center),
             ],
           ),
@@ -283,7 +271,7 @@ class __Example01TileState extends State<_Example01Tile> {
       context: context,
     ).then((val) {
       if (val != null) {
-        if (Global.user.coins < val.constructionCost) {
+        if (widget.user.coins < val.constructionCost) {
           showDialog(
             context: context,
             builder: (context) {
@@ -294,7 +282,6 @@ class __Example01TileState extends State<_Example01Tile> {
           );
         } else {
           setState(() {
-            // Global.user.coins -= val.constructionCost;
             imgFile = val.name;
             widget.updateUserBuildings(widget.index, val);
             widget.notiftParent(val.constructionCost);
