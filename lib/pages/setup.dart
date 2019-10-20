@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:budget_town/shared/Global.dart';
+import 'package:budget_town/shared/model/index.dart';
 
 class SetupAccount extends StatelessWidget {
   final String title;
@@ -41,7 +43,7 @@ class SetupAccount extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.email),
@@ -49,6 +51,15 @@ class SetupAccount extends StatelessWidget {
                       labelText: "What's your email?",
                     ),
                   // onSaved: (email),
+                  )
+                ), 
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(fontSize: 20)
                   )
                 )
               ],
@@ -101,7 +112,7 @@ class SetupBank extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.email),
@@ -109,6 +120,15 @@ class SetupBank extends StatelessWidget {
                       labelText: "What's your Account Number?",
                     ),
                   // onSaved: (email),
+                  )
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(fontSize: 20)
                   )
                 )
               ],
@@ -122,10 +142,12 @@ class SetupBank extends StatelessWidget {
 
 class SetupBudget extends StatelessWidget {
   final String title;
-  const SetupBudget({
+  SetupBudget({
     Key key,
     this.title,
   }) : super(key:key);
+
+  User user = Global.user;
 
   @override
   Widget build(BuildContext context) {
@@ -150,16 +172,25 @@ class SetupBudget extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                   child: TextFormField(
                     decoration: const InputDecoration(
                       icon: Icon(Icons.person),
                       hintText: 'Number',
                       labelText: "What's your desired monthly budget?",
                     ),
-                    // onSaved: (name),
+                    onSaved: (input) => user.budget = double.parse(input),
                   ),
                 ),
+                RaisedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(fontSize: 20)
+                  )
+                )
               ],
             )
           )
