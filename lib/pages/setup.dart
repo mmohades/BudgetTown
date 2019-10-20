@@ -120,9 +120,9 @@ class SetupBank extends StatelessWidget {
   }
 }
 
-class SetupGoals extends StatelessWidget {
+class SetupBudget extends StatelessWidget {
   final String title;
-  const SetupGoals({
+  const SetupBudget({
     Key key,
     this.title,
   }) : super(key:key);

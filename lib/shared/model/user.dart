@@ -4,6 +4,8 @@ import 'package:budget_town/shared/data_provider.dart';
 import 'package:budget_town/shared/model/index.dart';
 import 'package:date_util/date_util.dart';
 
+import 'building.dart';
+
 class User {
   String name;
   String id;
@@ -26,7 +28,8 @@ class User {
       DateUtil().daysInMonth(DateTime.now().month, DateTime.now().year);
   int get daysLeft => daysInMonth - DateTime.now().day;
 
-  bool isBottomSheetOpen = false;
+  //
+  Map<int, Building> buildings = {};
 
   User({
     this.name,

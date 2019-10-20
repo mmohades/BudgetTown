@@ -66,7 +66,17 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: <Widget>[
-            _budgetPercentIndicator(context),
+            Material(
+              child: InkWell(
+                child: _budgetPercentIndicator(context),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PurchaseChart()),
+                  );
+                },
+              )
+            ),
             SizedBox(height: 50),
             Text(
               breakDownTitle,
