@@ -30,29 +30,15 @@ dependencies:
 
   flutter_staggered_grid_view: ^0.3.0
 
-  
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_launcher_icons: "^0.7.0"
-
-flutter_icons:
-  ios: true
-  android: false
-  image_path_ios: "Design/launcher/logo.jpg"
-  image_path: "Design/launcher/logo.jpg"
-  # image_path_android: "assets/launcher/icon.png"
-  # adaptive_icon_background: "assets/launcher/background.png"
-  # adaptive_icon_foreground: "assets/launcher/foreground.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -60,15 +46,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - Design/
-   - Design/buildings/
-
+    - Design/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

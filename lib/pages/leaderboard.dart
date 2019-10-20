@@ -1,3 +1,5 @@
+import 'package:budget_town/pages/cityViewer.dart';
+import 'package:budget_town/shared/model/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,32 +18,34 @@ class Leaderboard extends StatelessWidget {
   }
 
   Widget _breakdown(BuildContext context) {
+    var anna = Users.ANNA;
+    var jony = Users.JONY;
     return ListView(
       children: <Widget>[
-        _breakDownListTile(
-          'Anna Town',
-          '300 Coins',
-          Icon(Icons.star),
-          Colors.red,
-          () {},
-        ),
+        createLeaderboardCell(anna, context),
+        createLeaderboardCell(jony, context)
       ],
     );
+  }
+
+  createLeaderboardCell(user, context) {
+    return _breakDownListTile('${user.name}\'s Town', '${user.coins} Coins',
+        Image.asset('Design/${user.profileImageName}'), Colors.red, () {});
   }
 
   Widget _breakDownListTile(
     String title,
     String spend,
-    Icon icon,
+    Image icon,
     Color color,
     VoidCallback onTap,
   ) {
     return ListTile(
       leading: Container(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
         ),
         child: icon,
       ),

@@ -16,6 +16,7 @@ class User {
   // SavingAccount savingAccount = DataProvider.getSavingAcc();
 
   int coins;
+  String profileImageName;
 
   double budget; // monthly budeget
   double get dailyBudget =>
@@ -31,10 +32,43 @@ class User {
   //
   Map<int, Building> buildings = {};
 
-  User({
-    this.name,
-    this.id,
-    this.coins = 300,
-    this.budget = 0,
-  });
+  User(
+      {this.name,
+      this.id,
+      this.coins = 1125,
+      this.budget = 0,
+      this.profileImageName = "user_image"});
+}
+
+class Users {
+  static final ANNA = User(
+      name: "Anna",
+      id: "001",
+      coins: 4500,
+      budget: 1200,
+      profileImageName: "anna.png");
+  static final BOB = User(
+      name: "Bob",
+      id: "002",
+      coins: 450,
+      budget: 600,
+      profileImageName: 'bob.png');
+  static final JONY = User(
+      name: "Jony",
+      id: "003",
+      coins: 850,
+      budget: 1100,
+      profileImageName: "jony.png");
+  static final MARK = User(
+      name: "Mark",
+      id: "004",
+      coins: 9200,
+      budget: 800,
+      profileImageName: "john.png");
+  static final MEHMET = User(
+      name: "Mehmet",
+      id: "005",
+      coins: 4500,
+      budget: 90,
+      profileImageName: "mehmet.png");
 }
