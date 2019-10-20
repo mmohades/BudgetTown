@@ -1,7 +1,9 @@
 import 'package:budget_town/pages/index.dart';
+import 'package:budget_town/shared/model/building.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:budget_town/shared/model/building.dart';
 
 import '../shared/Global.dart';
 import '../shared/model/user.dart';
@@ -104,9 +106,11 @@ class _PlayGroundState extends State<PlayGround> {
 }
 
 class _Example01Tile extends StatefulWidget {
-  const _Example01Tile(this.backgroundColor, this.iconData);
+  const _Example01Tile(this.backgroundColor, this.iconData,
+      {this.buildingName});
   final Color backgroundColor;
   final IconData iconData;
+  final String buildingName;
 
   @override
   __Example01TileState createState() => __Example01TileState();
@@ -135,6 +139,8 @@ class __Example01TileState extends State<_Example01Tile> {
     'Supermarket',
     'Townhouse',
   ];
+
+  List<Building> buildings = BuildingdProvider.initBuildings();
 
   @override
   Widget build(BuildContext context) {
@@ -169,24 +175,24 @@ class __Example01TileState extends State<_Example01Tile> {
         return BottomSheet(
           builder: (BuildContext context) {
             return ListView(
-              children: imgNames.map((name) {
+              children: buildings.map((building) {
                 return ListTile(
-                  leading: Image.asset('Design/buildings/$name.png'),
-                  title: Text(name),
+                  leading: Image.asset('Design/buildings/${building.name}.png'),
+                  title: Text(building.name),
                   trailing: RaisedButton(
-                    child: Text('10 Coins'),
+                    child: Text('${building.constructionCost} Coins'),
                     onPressed: () {
                       setState(() {
-                        imgFile = name;
                         user.isBottomSheetOpen = false;
+                        imgFile = building.name;
                       });
                       Navigator.of(context).pop();
                     },
                   ),
                   onTap: () {
                     setState(() {
-                      imgFile = name;
                       user.isBottomSheetOpen = false;
+                      imgFile = building.name;
                     });
                     Navigator.of(context).pop();
                   },

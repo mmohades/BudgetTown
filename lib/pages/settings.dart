@@ -6,87 +6,58 @@ import 'package:budget_town/shared/model/index.dart';
 class Settings extends StatefulWidget {
   const Settings({Key key}) : super(key: key);
 
-  @override 
+  @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
   User user = Global.user;
 
-  @override 
-  Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings')
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 50.0),
-            Expanded(
-              child: _options(context),
-            ),
-          ],
-        ),
-      )
-    );
+        appBar: AppBar(title: Text('Settings')),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 50.0),
+              Expanded(
+                child: _options(context),
+              ),
+            ],
+          ),
+        ));
   }
 
-  Widget _options(BuildContext context){
+  Widget _options(BuildContext context) {
     return ListView(
       children: <Widget>[
-        _optionsListTitle(
-          'Account Profile', 
-          Icon(Icons.person), 
-          Colors.grey, 
-          () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SetupAccount(
-                  title: 'Account Profile'
-                )
-              )
-            );
-          }
-        ),
+        _optionsListTitle('Account Profile', Icon(Icons.person), Colors.grey,
+            () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SetupAccount(title: 'Account Profile')));
+        }),
         SizedBox(height: 10.0),
         _optionsListTitle(
-          'Setup Bank Connection',
-          Icon(Icons.attach_money),
-          Colors.green,
-          () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SetupBank(
-                  title: 'Bank Account'  
-                )
-              )
-            );
-          }
-        ),
+            'Setup Bank Connection', Icon(Icons.attach_money), Colors.green,
+            () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SetupBank(title: 'Bank Account')));
+        }),
         SizedBox(height: 10.0),
         _optionsListTitle(
-          'Setup Budget Goals',
-          Icon(Icons.person_pin),
-          Colors.black,
-          () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SetupGoals(
-                  title: 'Choose your Goals'
-                )
-              )
-            );
-          }
-        ),
+            'Setup Budget Goals', Icon(Icons.person_pin), Colors.black, () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => SetupGoals(title: 'Choose your Goals')));
+        }),
       ],
     );
   }
 
   Widget _optionsListTitle(
     String title,
-    Icon icon, 
+    Icon icon,
     Color color,
     VoidCallback onTap,
   ) {
@@ -94,9 +65,7 @@ class _SettingsState extends State<Settings> {
       leading: Container(
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: color, 
-          borderRadius: BorderRadius.circular(10)
-        ),
+            color: color, borderRadius: BorderRadius.circular(10)),
         child: icon,
       ),
       title: Text(title),
