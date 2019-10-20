@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="159px" height="167px" viewBox="0 0 159 167" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Trophy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M36.2526796,0.787802703 C39.1318034,0.787802703 41.4657944,3.11032556 41.4657944,5.9753027 L41.4657944,31.2460458 C41.4657944,48.067669 27.7618398,61.7042889 10.8571551,61.7042889 L0.890236704,61.7042889 L6.5722367,51.9148027 L12.9542794,50.1362271 C23.0172393,47.3306083 30.2308607,38.5724625 31.0438383,28.2331798 L31.071943,27.8347446 L31.996422,13.0335123 L32.0001867,12.953102 L32.0001867,12.953102 L32.001442,12.8726142 C32.001442,11.8643626 31.4233131,10.9904768 30.5789294,10.5612984 L36.2526796,0.787802703 Z" id="path-1"></path>
+        <filter x="-7.4%" y="-4.9%" width="114.8%" height="109.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="-6" dy="0" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.08 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <path d="M123.789467,0.653104788 C125.225407,0.653104788 126.389467,1.81716444 126.389467,3.25310479 L126.389467,46.146295 C126.389467,58.7212868 121.647098,70.5142839 112.162361,81.5252864 C99.0007851,96.804798 85.6170547,99.1150006 87.4858776,117.26645 L80.7737504,117.319105 L80.7747124,117.322009 L80.6277504,117.320105 L80.4815045,117.322009 L80.4807504,117.319105 L73.7703393,117.26645 C75.620474,99.2965151 62.5215812,96.8525862 49.4887541,81.9798097 L49.0938557,81.5252864 C39.6091188,70.5142839 34.8667504,58.7212868 34.8667504,46.146295 L34.8667504,46.146295 L34.8667504,3.25310479 C34.8667504,1.81716444 36.03081,0.653104788 37.4667504,0.653104788 L37.4667504,0.653104788 L123.789467,0.653104788 Z" id="path-3"></path>
+        <filter x="-3.3%" y="-2.6%" width="106.6%" height="105.1%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="6" dy="0" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.08 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Trophy" transform="translate(-1.000000, 0.000000)">
+            <g id="Group-3-Copy">
+                <g id="Group" transform="translate(118.295082, 10.375000)" fill="#FFC300">
+                    <path d="M36.2526796,0.787802703 C39.1318034,0.787802703 41.4657944,3.11032556 41.4657944,5.9753027 L41.4657944,31.2460458 C41.4657944,48.067669 27.7618398,61.7042889 10.8571551,61.7042889 L0.890236704,61.7042889 L6.5722367,51.9148027 L12.9542794,50.1362271 C23.0172393,47.3306083 30.2308607,38.5724625 31.0438383,28.2331798 L31.071943,27.8347446 L31.996422,13.0335123 C31.9997679,12.9799442 32.001442,12.9262857 32.001442,12.8726142 C32.001442,11.8643626 31.4233131,10.9904768 30.5789294,10.5612984 L36.2526796,0.787802703 Z" id="Combined-Shape"></path>
+                </g>
+                <g id="Group-Copy" transform="translate(21.704918, 41.375000) scale(-1, 1) translate(-21.704918, -41.375000) translate(0.704918, 10.375000)">
+                    <g id="Combined-Shape">
+                        <use fill="#FFC300" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+                <rect id="Rectangle-2" fill="#FFC300" x="29.6721311" y="151.4375" width="101.655738" height="3.890625" rx="1.9453125"></rect>
+                <g id="Combined-Shape">
+                    <use fill="#FFC300" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                </g>
+                <rect id="Rectangle-2-Copy" fill="#FFC300" x="12.7295082" y="163.109375" width="24.7622951" height="3.890625" rx="1.9453125"></rect>
+                <rect id="Rectangle" fill="#EC610A" x="47.9180328" y="116.71875" width="65.1639344" height="35.015625"></rect>
+                <rect id="Rectangle-Copy" fill="#FFC300" x="58.3442623" y="124.5" width="44.3114754" height="19.453125"></rect>
+                <rect id="Rectangle-2-Copy-2" fill="#FFC300" x="51.8278689" y="163.109375" width="19.5491803" height="3.890625" rx="1.9453125"></rect>
+                <polygon id="Star" fill="#EC610A" points="80.5 55.1171875 65.9450881 62.7315594 68.724829 46.6040609 56.9496579 35.1825031 73.2225441 32.8295328 80.5 18.15625 87.7774559 32.8295328 104.050342 35.1825031 92.275171 46.6040609 95.0549119 62.7315594"></polygon>
+                <path d="M44.7293948,36.5996311 C45.4286167,48.7515853 47.3862922,58.0598124 50.6024213,64.5243125" id="Path-2" stroke="#EC610A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M54.6982285,72.7344453 C57.0780619,76.2583596 59.0408412,78.7748713 60.5865664,80.2839801" id="Path-3" stroke="#EC610A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                <rect id="Rectangle-2-Copy-3" fill="#FFC300" x="79.1967213" y="163.109375" width="13.0327869" height="3.890625" rx="1.9453125"></rect>
+                <rect id="Rectangle-2-Copy-4" fill="#FFC300" x="105.262295" y="163.109375" width="53.4344262" height="3.890625" rx="1.9453125"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

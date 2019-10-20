@@ -1,6 +1,5 @@
-import 'package:budget_down/shared/data_provider.dart';
-import 'package:budget_down/shared/model/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:budget_town/shared/data_provider.dart';
+import 'package:budget_town/shared/model/index.dart';
 import 'package:flutter/material.dart';
 
 class TransactionPage extends StatelessWidget {

@@ -1,6 +1,4 @@
-import 'package:budget_down/pages/index.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:budget_town/pages/index.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

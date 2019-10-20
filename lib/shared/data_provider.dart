@@ -1,5 +1,4 @@
-import 'package:budget_down/shared/model/index.dart';
-import 'package:budget_down/shared/model/saving_account.dart';
+import 'package:budget_town/shared/model/index.dart';
 
 class DataProvider {
   static SavingAccount getSavingAcc() {

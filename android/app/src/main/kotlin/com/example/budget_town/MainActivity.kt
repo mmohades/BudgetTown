@@ -1,4 +1,4 @@
-package com.example.budget_down
+package com.example.budget_town
 
 import android.os.Bundle
 
