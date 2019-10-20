@@ -55,14 +55,30 @@ class _SettingsState extends State<Settings> {
           'Setup Bank Connection',
           Icon(Icons.attach_money),
           Colors.green,
-          () {}
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SetupBank(
+                  title: 'Bank Account'  
+                )
+              )
+            );
+          }
         ),
         SizedBox(height: 10.0),
         _optionsListTitle(
           'Setup Budget Goals',
           Icon(Icons.person_pin),
           Colors.black,
-          () {}
+          () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SetupGoals(
+                  title: 'Choose your Goals'
+                )
+              )
+            );
+          }
         ),
       ],
     );
