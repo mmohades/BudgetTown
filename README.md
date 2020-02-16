@@ -1,3 +1,11 @@
+# BudgetTown
+
+## Demo
+
+<img src="Design/mockups/home.png" alt="Store" width="233.1" height="478.26" />     <img src="Design/mockups/store.png" alt="Store" width="233.1" height="478.26" />     <img src="Design/mockups/friends.png" alt="Store" width="233.1" height="478.26"  />
+
+Stay on your budget. Receive Virtual Coins. Spend them on building your town. See how your friends are doing with their town.
+
 ## Inspiration
 
 It's human nature to expect the best and not plan for the worst, so many otherwise smart Americans refuse to budget–because they don't think they need it. Then a serious illness or accident keeps them out of work. Or they simply get laid off. While some mobile applications in the market help with budgeting, they all share two main problems: 1. The app gets complicated to use, 2. People stop keeping track of their budget because of the lack of motivation and education.
